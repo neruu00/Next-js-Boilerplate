@@ -1,14 +1,22 @@
 {
   "name": "next-boilerplate",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "quickly start a Next.js project with Turbopack and Tailwind CSS",
+  "author": "dnwogus4260@naver.com",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "fix": "next lint --fix",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "git clean -xdf node_modules",
+    "setup": "bash setup.sh"
   },
   "dependencies": {
     "next": "15.5.0",
