@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Boilerplate
 
-## Getting Started
+This is a Next.js boilerplate designed to help you quickly start developing web applications based on a modern tech stack.
 
-First, run the development server:
+### Features
+
+  - **Next.js 15+** with App Router
+  - **React 19+**  JavaScript library for component-based architecture.
+  - **TypeScript** for type safety
+  - **Tailwind CSS** for utility-first styling
+  - **Turbopack** for fast development speed
+  - **ESLint & Prettier** for strict code conventions and auto-formatting on save
+  - **Absolute Imports** using the `@/*` path alias
+
+### Getting Started
+
+Here is how to start a project using this boilerplate.
+
+#### 1. Project Initialization
+
+Follow the instructions below to complete the initial setup.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Clone the repository and navigate into the folder.
+git clone https://github.com/Woolegend/Next-js-Boilerplate.git new-next-app
+cd new-next-app
+
+# 2. (Required) Run the interactive setup script.
+npm run setup
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `npm run setup` command automatically performs the following tasks:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  - Create `.env.local`
+  - Performs a clean installation of project dependencies (`node_modules`).
+  - Deletes the boilerplate's existing Git history and creates a fresh initial commit for your project.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Recommended VS Code Extensions
 
-## Learn More
+For the best development experience, we recommend installing the following VS Code extensions.
+: Open Quick Open (`cmd` or `ctrl` + `p`) and paste the following commands.
 
-To learn more about Next.js, take a look at the following resources:
+  - **Prettier - Code formatter**
+    ```
+    ext install esbenp.prettier-vscode
+    ```
+  - **ESLint**
+    ```
+    ext install dbaeumer.vscode-eslint
+    ```
+  - **Tailwind CSS IntelliSense**
+    ```
+    ext install bradlc.vscode-tailwindcss
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+These are the main commands available in this boilerplate.
 
-## Deploy on Vercel
+  - `npm run dev`: Runs the Next.js application in development mode (with Turbopack enabled).
+  - `npm run build`: Builds the application for production.
+  - `npm run start`: Starts the built production server.
+  - `npm run lint`: Checks for code style issues using ESLint.
+  - `npm run lint:fix`: Automatically fixes fixable ESLint and formatting issues.
+  - `npm run setup`: **(Run once)** Performs all the initial setup tasks to start your project.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### License
+This project is licensed under the MIT License. See the [LICENSE](https://opensource.org/license/MIT) file for details.
