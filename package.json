@@ -5,7 +5,7 @@
   "author": "dnwogus4260@naver.com",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/neruu00/Next-js-Boilerplate.git"
   },
   "private": true,
   "scripts": {
@@ -19,6 +19,8 @@
     "setup": "bash setup.sh"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.19",
+    "@tanstack/react-query-devtools": "^5.91.2",
     "next": "15.5.9",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@tanstack/eslint-plugin-query": "^5.91.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
