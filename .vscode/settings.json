@@ -19,5 +19,22 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
+  },
+  "tailwindCSS.classFunctions": ["cva", "cn"],
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^;]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["cn\\(([^;]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   }
 }
