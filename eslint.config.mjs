@@ -11,6 +11,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import prettierConfig from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import pluginQuery from '@tanstack/eslint-plugin-query';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,18 +28,21 @@ const eslintConfig = [
   {
     plugins: {
       import: importPlugin,
+      'unused-imports': unusedImports,
     },
     rules: {
-      eqeqeq: ['error', 'always'], // ===, !== force
-      'no-unused-vars': [
+      eqeqeq: ['error', 'always'],
+      'no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
         'warn',
         {
-          args: 'after-used',
-          ignoreRestSiblings: true,
+          vars: 'all',
           varsIgnorePattern: '^_',
+          args: 'after-used',
           argsIgnorePattern: '^_',
         },
-      ], // unused vars warning
+      ],
       'prefer-const': ['error', { destructuring: 'all' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
