@@ -59,8 +59,8 @@ echo -e "\n${YELLOW}Installing dependencies using ${PACKAGE_MANAGER}...${NC}"
 $PACKAGE_MANAGER install
 echo -e "✅ Dependencies installed."
 
-# 5. Cleanup
-echo -e "\n${YELLOW}Cleaning up setup files...${NC}"
+# 5. Cleanup and Initial Commit
+echo -e "\n${YELLOW}Cleaning up and creating initial commit...${NC}"
 
 # Remove .env.example
 if [ -f .env.example ]; then
@@ -80,11 +80,17 @@ if (pkg.scripts && pkg.scripts.setup) {
 "
 echo -e "✅ 'setup' script removed from package.json."
 
+# Git Add and Commit
+echo -e "Creating initial commit..."
+git add .
+# Unstage this script so it's not in the initial commit
+git reset -- "$0" &> /dev/null || true 
+git commit -m "setup project"
+echo -e "✅ Initial commit created: 'setup project'"
+
 # Self-deletion
 SCRIPT_NAME=$0
-echo -e ""
-
-echo -e "${GREEN}🎉 Project setup complete!${NC}"
+echo -e "\n${GREEN}🎉 Project setup complete!${NC}"
 echo -e "Self-destructing ${SCRIPT_NAME} in 3 seconds..."
 sleep 3
 rm -- "$SCRIPT_NAME"
