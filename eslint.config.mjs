@@ -61,13 +61,16 @@ const eslintConfig = [
             'sibling', // 형제 디렉토리 ('./')
             'index', // 현재 디렉토리의 index 파일 ('./index')
             'object', // <object> 태그 타입
-            'type', // type import (import type { ... })
           ],
           pathGroups: [
             {
               pattern: '@/**',
               group: 'internal',
-              position: 'after',
+            },
+            {
+              pattern: '**/*.css',
+              group: 'index',
+              position: 'after', // CSS 파일은 무조건 맨 마지막으로!
             },
           ],
           // 그룹 사이에 항상 한 줄의 공백을 추가하여 가독성을 높입니다.
