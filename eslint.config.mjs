@@ -8,9 +8,9 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import { FlatCompat } from '@eslint/eslintrc';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import prettierConfig from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import pluginQuery from '@tanstack/eslint-plugin-query';
 import unusedImports from 'eslint-plugin-unused-imports';
 
 const __filename = fileURLToPath(import.meta.url);

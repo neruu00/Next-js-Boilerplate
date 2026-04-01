@@ -37,16 +37,18 @@ const main = async () => {
   // STEP 1: Environment Check
   log.section('🔍 STEP 1: Environment Check');
   const nodeVersion = process.version;
-  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-  const nextVersion = pkg.dependencies.next;
-  const reactVersion = pkg.dependencies.react;
+  const pkgPath = path.join(process.cwd(), 'package.json');
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+
+  const nextVersion = pkg.dependencies?.next || 'N/A';
+  const reactVersion = pkg.dependencies?.react || 'N/A';
 
   log.info(`Node.js:          ${GREEN}${nodeVersion}${NC}`);
   log.info(`Next.js:          ${GREEN}${nextVersion}${NC}`);
   log.info(`React:            ${GREEN}${reactVersion}${NC}`);
 
   const userAgent = process.env.npm_config_user_agent || '';
-  const isPnpm = userAgent.includes('pnpm') || fs.existsSync('pnpm-lock.yaml');
+  const isPnpm = userAgent.includes('pnpm') || fs.existsSync(path.join(process.cwd(), 'pnpm-lock.yaml'));
   const packageManager = isPnpm ? 'pnpm' : 'npm';
   log.info(`Package Manager:  ${GREEN}${packageManager}${NC}\n`);
 
@@ -54,46 +56,52 @@ const main = async () => {
   log.section('📦 STEP 2: Git & Environment Setup');
 
   // 2.1 Git Reset
+  const gitPath = path.join(process.cwd(), '.git');
+  
   log.info('Resetting Git history...');
-  run('rm -rf .git');
+  if (fs.existsSync(gitPath)) {
+    fs.rmSync(gitPath, { recursive: true, force: true });
+  }  
   run('git init --quiet');
   log.success('Git repository initialized (Fresh state).');
 
   // 2.2 Env Setup
-  if (!fs.existsSync('.env.local') && fs.existsSync('.env.example')) {
+  const envExamplePath = path.join(process.cwd(), '.env.example');
+  const envLocalPath = path.join(process.cwd(), '.env.local');
+  if (!fs.existsSync(envLocalPath) && fs.existsSync(envExamplePath)) {
     log.info('Creating .env.local...');
-    fs.copyFileSync('.env.example', '.env.local');
+    fs.copyFileSync(envExamplePath, envLocalPath);
     log.success('.env.local created.');
-  } else if (fs.existsSync('.env.local')) {
+  } else if (fs.existsSync(envLocalPath)) {
     log.warn('.env.local already exists. Skipping.');
   }
 
   // 2.3 Dependencies
   log.info(`Installing dependencies using ${packageManager}...`);
-  run(`${packageManager} install`, false);
+  run(`${packageManager} install`, true);
   log.success('Dependencies installed.\n');
 
   // STEP 3: Final Cleanup & Single Commit
   log.section('🧹 STEP 3: Final Cleanup & Configure');
 
   // 3.1 Cleanup files
-  if (fs.existsSync('.env.example')) {
-    fs.unlinkSync('.env.example');
+  if (fs.existsSync(envExamplePath)) {
+    fs.unlinkSync(envExamplePath);
     log.success('Removed .env.example');
   }
 
   // 3.2 Update package.json (Remove setup script)
   log.info('Cleaning package.json...');
-  delete pkg.scripts.setup;
-  fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-  log.success('package.json optimized.');
+  if (pkg.scripts && pkg.scripts.setup) {
+    delete pkg.scripts.setup;
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+    log.success('package.json optimized.');
+  }
 
-  // 3.3 Delete setup scripts
-  log.info('Removing setup files...');
-  if (fs.existsSync('setup.js')) fs.unlinkSync('setup.js');
-  const selfName = path.basename(__filename);
-  
-  // 3.4 The Grand Finale: Single Commit
+
+  // 3.3 The Grand Finale: Single Commit with Delete setup scripts
+  const selfName = path.join(process.cwd(), path.basename(__filename));
+
   log.info('Generating single initial commit...');
   try {
     // Delete self last to ensure commands finish
