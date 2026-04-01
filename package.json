@@ -16,10 +16,11 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "git clean -xdf node_modules",
-    "setup": "bash setup.sh",
+    "setup": "node setup.js",
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^5.90.19",
     "@tanstack/react-query-devtools": "^5.91.2",
     "class-variance-authority": "^0.7.1",
@@ -28,7 +29,9 @@
     "next": "15.5.14",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-hook-form": "^7.72.0",
     "tailwind-merge": "^3.5.0",
+    "zod": "^4.3.6",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

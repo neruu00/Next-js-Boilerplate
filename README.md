@@ -9,7 +9,10 @@ This is a Next.js boilerplate designed to help you quickly start developing web 
 - **TypeScript** for strict type safety
 - **Tailwind CSS 4.0** with **`prettier-plugin-tailwindcss`** for auto-sorting
 - **Styling Utilities**: **`tailwind-merge`** & **`clsx`** (`cn` helper) for cleaner class management
-- **Component Variants**: **`class-variance-authority` (CVA)** for type-safe UI components
+- **State Management**: **Zustand** for lightweight global state
+- **Data Fetching**: **TanStack Query (React Query)** with basic caching and fetching setup
+- **Validation**: **Zod** paired with **React Hook Form** and **Hook Form Resolvers** for strict form safety
+- **UI Components**: **Lucide React** icons and **CVA** for stylized variants
 - **Automated Quality Control**: **Husky** & **lint-staged** (ESLint & Prettier run automatically on commit)
 - **Advanced Linting**: **`eslint-plugin-unused-imports`** for automatic cleanup
 - **Absolute Imports**: Using the `@/*` path alias
@@ -30,11 +33,10 @@ pnpm run setup
 ```
 
 The `setup` command automatically performs the following:
-- Validates your environment (Node, Next, React versions)
-- Creates `.env.local` from `.env.example` (if exists)
-- Installs all dependencies
-- **Automates Git**: Initializes a fresh repository, stages all files, and creates an initial "setup project" commit.
-- **Self-Cleanup**: Removes the setup script from `package.json`, deletes `.env.example`, and deletes the `setup.sh` file itself.
+- **Environment Check**: Validates Node, Next, and React versions.
+- **Git Automation**: Resets history, creates an `initial boilerplate` commit, performs setup, and then creates a `setup project` commit to record the final clean state.
+- **Dependency Install**: Installs all packages using your detected package manager (`pnpm` or `npm`).
+- **Self-Cleanup**: Removes the setup script from `package.json`, deletes `.env.example`, and stages the deletion of the `setup.sh` file itself.
 
 ### Recommended VS Code Extensions
 
