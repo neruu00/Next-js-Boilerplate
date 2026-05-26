@@ -65,31 +65,47 @@ src/mocks/
 import { http, HttpResponse } from 'msw'
 
 export const userHandlers = [
-  // GET 요청
-  http.get('/api/users', () => {
+  // 1. GET 요청 및 쿼리 파라미터 파싱 (Pagination 예시)
+  http.get('/api/users', ({ request }) => {
+    const url = new URL(request.url)
+    const page = url.searchParams.get('page')
+    
+    if (page) {
+      return HttpResponse.json([{ id: '1', name: '홍길동', page }])
+    }
     return HttpResponse.json([{ id: '1', name: '홍길동' }])
   }),
 
-  // POST 요청 (요청 본문 파싱)
+  // 2. POST 요청 (JSON 및 FormData 본문 파싱 분기)
   http.post('/api/users', async ({ request }) => {
-    const body = await request.json()
-    return HttpResponse.json({ id: '2', ...body }, { status: 201 })
+    const contentType = request.headers.get('content-type') || ''
+    let name = ''
+
+    if (contentType.includes('multipart/form-data')) {
+      const formData = await request.formData()
+      name = formData.get('name')?.toString() || ''
+    } else {
+      const body = await request.json() as any
+      name = body.name || ''
+    }
+
+    return HttpResponse.json({ id: '2', name }, { status: 201 })
   }),
 
-  // URL 파라미터
+  // 3. URL Path 파라미터 파싱
   http.get('/api/users/:id', ({ params }) => {
     return HttpResponse.json({ id: params.id, name: '홍길동' })
   }),
 
-  // 에러 응답
+  // 4. 특정 조건에서 에러 핸들링
   http.delete('/api/users/:id', ({ params }) => {
     if (params.id === '999') {
       return HttpResponse.json(
-        { message: '사용자를 찾을 수 없습니다.' },
-        { status: 404 }
+        { message: '삭제할 수 없는 사용자입니다.' },
+        { status: 403 }
       )
     }
-    return new HttpResponse(null, { status: 204 })
+    return HttpResponse.json({ message: '삭제 완료' })
   }),
 ]
 ```
