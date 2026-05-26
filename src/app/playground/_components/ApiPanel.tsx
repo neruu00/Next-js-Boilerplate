@@ -104,8 +104,22 @@ export function ApiPanel({ title, apis, onResult }: ApiPanelProps) {
       // 4. 공통 API 클라이언트로 요청 전송
       const res = await apiClient(endpoint, options).json();
       onResult(JSON.stringify(res, null, 2));
+      toast.success('요청 성공');
     } catch (error: any) {
-      onResult(`에러 발생:\n${error.message}`);
+      let errorDetail = '';
+      
+      // ky의 HTTPError인 경우 response 파싱 시도
+      if (error.response) {
+        try {
+          const errorJson = await error.response.json();
+          errorDetail = `\n\n[Response Body]\n${JSON.stringify(errorJson, null, 2)}`;
+        } catch (e) {
+          // JSON 파싱 실패 시 무시
+        }
+      }
+
+      toast.error(`API 요청 실패: ${error.message}`);
+      onResult(`에러 발생:\n${error.message}${errorDetail}`);
     }
   };
 

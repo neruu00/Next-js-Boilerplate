@@ -58,11 +58,8 @@ const defaultOptions: Options = {
     ],
     beforeError: [
       ({ error }) => {
-        // HTTPError는 response 프로퍼티를 가짐 (네트워크 에러 등은 제외)
-        if (error instanceof HTTPError) {
-          // 공통 에러 로깅 (Sentry 등 연동 가능)
-          console.error(`[API Error] ${error.response.status}: ${error.response.url}`);
-        }
+        // 공통 에러 처리 로직 (Sentry 등)
+        // console.error 등 콘솔 출력은 제거됨
         return error;
       },
     ],
